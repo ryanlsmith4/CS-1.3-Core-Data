@@ -19,28 +19,17 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Decode digits from binary (base 2)
     # if base == 2:
-    power = 0 # exponent
+    power = len(digits) - 1 # exponent
     base_ten_value = 0 # value keeping track of total Base 10
-    reversed_digits = reversed(digits)
-    for value in (reversed_digits):
+    # reversed_digits = reversed(digits)
+    for value in digits:
+    # for value in (reversed_digits):
         if value == '1':
             base_ten_value = base_ten_value + (base ** power)
-            power += 1
+            power -= 1
         else:
-            power += 1
+            power -= 1
     return base_ten_value
-    # if base == 16:
-    #     power = 0 # exponent
-    #     base_ten_value = 0 # value keeping track of total Base 10
-    #     reversed_digits = reversed(digits)
-    #     for value in (reversed_digits):
-    #         if value == '1':
-    #             base_ten_value = base_ten_value + (base ** power)
-    #             power += 1
-    #         else:
-    #             power += 1
-    #     return base_ten_value
-
     # ...
     # TODO: Decode digits from hexadecimal (base 16)
     # ...
@@ -103,3 +92,4 @@ if __name__ == '__main__':
     # main()
     print(decode('10110', 2)) # 22
     print(decode('11110110', 2)) # 246
+    # print(decode('00125BC', 16)) # 32
