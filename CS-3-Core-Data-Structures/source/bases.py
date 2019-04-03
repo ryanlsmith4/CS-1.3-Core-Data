@@ -50,10 +50,11 @@ def encode(number, base):
         if remainder > 9:
             remainder += 87 # add 87 to get correct ascii value
             remainder = str(chr(remainder)) # change to ascii value with chr
+            print(remainder)
         number = number // base # Get new number to get remainder of iterating
                                 # the number towards 0
         answer += str(remainder) # insert new remainder into answer
-    return answer[::-1]
+    return answer[::-1] # returns string in reversed order
 
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
@@ -86,3 +87,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    encode()
