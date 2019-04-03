@@ -86,9 +86,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # print(encode(590, 16))
-    # print(decode('10110', 2)) # 22
-    # print(decode('11110110', 2)) # 246
-    # print(decode('11111111', 2)) # 255
-    # print(decode('01011100', 2)) # 92
-    # print(decode('00125BC', 16)) # 32
