@@ -26,11 +26,13 @@ def decode(digits, base):
             lower_check = value.lower()
             hex_value = ord(lower_check) - 87 # subtract 87 because that's the
                                               # distance from target
+            # get the value for hexi decimals
             base_ten_value = base_ten_value + (base ** power) * hex_value
-            power -= 1
+            power -= 1 # adjust power for exponents
         else:
+            # get the value for binary
             base_ten_value = base_ten_value + (base ** power) * int(value)
-            power -= 1
+            power -= 1 # adjust power for exponents
     return base_ten_value
 
 def encode(number, base):
@@ -45,6 +47,9 @@ def encode(number, base):
     answer = ''
     while number > 0:
         remainder = number % base # Get remainder from number and base
+        if remainder > 9:
+            remainder += 87 # add 87 to get correct ascii value
+            remainder = str(chr(remainder)) # change to ascii value with chr
         number = number // base # Get new number to get remainder of iterating
                                 # the number towards 0
         answer += str(remainder) # insert new remainder into answer
@@ -59,14 +64,8 @@ def convert(digits, base1, base2):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
+    base10 = decode(digits, base1) # call decode on input
+    return encode(base10, base2) # then call encode on output of decode
 
 
 def main():
@@ -86,8 +85,8 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
-    print(encode(256, 16))
+    main()
+    # print(encode(590, 16))
     # print(decode('10110', 2)) # 22
     # print(decode('11110110', 2)) # 246
     # print(decode('11111111', 2)) # 255
