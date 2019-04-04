@@ -8,15 +8,28 @@ def factorial(n):
         raise ValueError('factorial is undefined for n = {}'.format(n))
     # implement factorial_iterative and factorial_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    # return factorial_iterative(n)
-    return factorial_recursive(n)
+    return factorial_iterative(n)
+    # return factorial_recursive(n)
 
 
 def factorial_iterative(n):
-    # TODO: implement the factorial function iteratively here
-    pass
+    # factorial function iteratively
+    # check if n is one of the base cases
+    if n == 0 or n == 1:
+        return 1
+    # check if n is an integer larger than the base cases
+    elif n > 1:
+        # set factorial equal to the given value
+        factorial = n
+        # range(n, 0, -1) counts down from n
+        for n in range(n, 1, -1):
+            factorial *= (n - 1)
+        return factorial
     # once implemented, change factorial (above) to call factorial_iterative
     # to verify that your iterative implementation passes all tests
+
+    # 4! = 4 * 3 * 2 * 1 = 24
+    # 5! = 5 * 4 * 3 * 2 * 1 = 120
 
 
 def factorial_recursive(n):

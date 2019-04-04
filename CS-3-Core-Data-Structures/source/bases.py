@@ -24,8 +24,8 @@ def decode(digits, base):
         # print(value)
         if value in string.ascii_letters:
             lower_check = value.lower()
-            hex_value = ord(lower_check) - 87 # subtract 87 because that's the
-                                              # distance from target
+            # subtract 87 because that's the distance from target
+            hex_value = ord(lower_check) - 87
             # get the value for hexi decimals
             base_ten_value = base_ten_value + (base ** power) * hex_value
             power -= 1 # adjust power for exponents
@@ -50,9 +50,8 @@ def encode(number, base):
         if remainder > 9:
             remainder += 87 # add 87 to get correct ascii value
             remainder = str(chr(remainder)) # change to ascii value with chr
-            print(remainder)
-        number = number // base # Get new number to get remainder of iterating
-                                # the number towards 0
+        # Get new number to get remainder of iterating the number towards 0
+        number = number // base
         answer += str(remainder) # insert new remainder into answer
     return answer[::-1] # returns string in reversed order
 
