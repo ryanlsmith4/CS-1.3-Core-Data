@@ -33,8 +33,8 @@ def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
     # implement binary_search_iterative and binary_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    # return binary_search_iterative(array, item)
-    return binary_search_recursive(array, item)
+    return binary_search_iterative(array, item)
+    # return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(array, item):
@@ -55,33 +55,24 @@ def binary_search_iterative(array, item):
             half = half + (len(array) - half) // 2
             chances -= 1
     return None
-    # once implemented, change binary_search to call binary_search_iterative
-    # to verify that your iterative implementation passes all tests
-
 
 def binary_search_recursive(array, item, left=None, right=None):
-    if right == None or left == None:
-        right = len(array) - 1
-        left = 0
-        middle = len(array) // 2
+    if right == None or left == None: # 1st Check to get the ball rolling
+        right = len(array) - 1 # assign where right should begin
+        left = 0 # assign where left should begin
+        middle = len(array) // 2 # first middle assignment
     else:
-        middle = (left + right) // 2
-    if len(array) == 0:
+        middle = (left + right) // 2 # middle is assigned after first iteration
+    if len(array) == 0: # check that array is not none
         return None
-    if item == array[middle]:
+    if item == array[middle]: # Does the item match the spot in the array
         return middle
+    # check if left and right are equal to return non list items
     if left == right:
         return None
+    # item less than current pointer; move pointer to the left
     if item < array[middle]:
         return binary_search_recursive(array, item, left, middle - 1)
+    # item greater than current pointer; move pointer to the right
     if item > array[middle]:
         return binary_search_recursive(array, item, middle + 1, right)
-
-    # once implemented, change binary_search to call binary_search_recursive
-    # to verify that your recursive implementation passes all tests
-
-names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
-# item = 'yello'
-# print(linear_search_recursive(names, item))
-print(binary_search_recursive(names, 'Winnie',))
-# print(binary_search_iterative(array, item))
