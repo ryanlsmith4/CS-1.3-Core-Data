@@ -60,14 +60,28 @@ def binary_search_iterative(array, item):
 
 
 def binary_search_recursive(array, item, left=None, right=None):
-    # TODO: implement binary search recursively here
-    print(array)
-    pass
+    if right == None or left == None:
+        right = len(array) - 1
+        left = 0
+        middle = len(array) // 2
+    else:
+        middle = (left + right) // 2
+    if len(array) == 0:
+        return None
+    if item == array[middle]:
+        return middle
+    if left == right:
+        return None
+    if item < array[middle]:
+        return binary_search_recursive(array, item, left, middle - 1)
+    if item > array[middle]:
+        return binary_search_recursive(array, item, middle + 1, right)
+
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
 
 names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
 # item = 'yello'
 # print(linear_search_recursive(names, item))
-# print(binary_search(names, 'nobody'))
+print(binary_search_recursive(names, 'Winnie',))
 # print(binary_search_iterative(array, item))
