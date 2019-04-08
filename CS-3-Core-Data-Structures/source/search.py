@@ -17,16 +17,14 @@ def linear_search_iterative(array, item):
 
 
 def linear_search_recursive(array, item, index=0):
-    # TODO: implement linear search recursively here
-    # attempts = 0
-    if len(array) -1 == index - 1:
+    # implement linear search recursively here
+    if len(array) <= index: # check valid index
         return None
-    if array[index] == item:
+    elif array[index] == item: # Item Found
         return index
     else:
+        # Return function from following index
         return linear_search_recursive(array, item, index + 1)
-    # once implemented, change linear_search to call linear_search_recursive
-    # to verify that your recursive implementation passes all tests
 
 
 def binary_search(array, item):
@@ -42,7 +40,7 @@ def binary_search_iterative(array, item):
     if len(array) == 0: # catch empty array
         return None
     half = len(array) // 2 # Look at middle of list
-    # keep Track to make sure if the item isn't found we retrun None
+    # Keep track to make sure if the item isn't found we return None
     chances = len(array) -1
     while chances != 0:
         if item == array[half]: # Did we find Item first try?
@@ -57,7 +55,7 @@ def binary_search_iterative(array, item):
     return None
 
 def binary_search_recursive(array, item, left=None, right=None):
-    if right == None or left == None: # 1st Check to get the ball rolling
+    if right == None: # 1st Check to get the ball rolling
         right = len(array) - 1 # assign where right should begin
         left = 0 # assign where left should begin
         middle = len(array) // 2 # first middle assignment
