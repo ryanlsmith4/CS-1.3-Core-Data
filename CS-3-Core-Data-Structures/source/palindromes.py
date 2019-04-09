@@ -13,31 +13,38 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # Clean the text to remove special chars and white space
+    clean_text = re.sub('[^A-Za-z0-9]+', '', text).lower()
+    # return is_palindrome_iterative(clean_text)
+    return is_palindrome_recursive(clean_text)
 
 
 def is_palindrome_iterative(text):
     # implement the is_palindrome function iteratively here
-    # Clean the text to remove special chars and white space
-    clean_text = re.sub('[^A-Za-z0-9]+', '', text).lower()
-    right_index = len(clean_text) - 1
+    right_index = len(text) - 1
     left_index = 0
     # only iterate through half the list starting at both sides
-    for i in range(len(clean_text) // 2):
-        if clean_text[first_index] == clean_text[last_index]:
-            first_index += 1
-            last_index -=1
+    for i in range(len(text) // 2):
+        if text[left_index] == text[right_index]:
+            left_index += 1
+            right_index -=1
         else:
             return False
     return True
 
-def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
-
+def is_palindrome_recursive(text, left=None, right=None, count = 0):
+    # implement the is_palindrome function recursively here
+    if len(text) == 0:
+        return True
+    if right == None:
+        right = len(text) - 1
+        left = 0
+    if count == len(text) -1 :
+        return True
+    if text[right] == text[left]:
+        return is_palindrome_recursive(text, left + 1, right - 1, count + 1)
+    if text[right] != text[left]:
+        return False
 
 def main():
     import sys
@@ -55,8 +62,11 @@ def main():
 
 # print(is_palindrome_iterative('AAAAZAAA'))
 # print(is_palindrome_iterative('BB'))
-print(is_palindrome_iterative('race fast safe car'))
+# print(is_palindrome_iterative('race fast safe car'))
 # print(is_palindrome_iterative('..dog.. go..d? 2132312 @#$%%%'))
+# print(is_palindrome('No! on'))
+# print(is_palindrome('race fast safe car'))
+# print(is_palindrome('AAAAZAAA'))
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
