@@ -1,5 +1,5 @@
 #!python
-
+import re
 import string
 # Hint: Use these string constants to ignore capitalization and/or punctuation
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
@@ -18,11 +18,19 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
-
+    # implement the is_palindrome function iteratively here
+    # Clean the text to remove special chars and white space
+    clean_text = re.sub('[^A-Za-z0-9]+', '', text).lower()
+    right_index = len(clean_text) - 1
+    left_index = 0
+    # only iterate through half the list starting at both sides
+    for i in range(len(clean_text) // 2):
+        if clean_text[first_index] == clean_text[last_index]:
+            first_index += 1
+            last_index -=1
+        else:
+            return False
+    return True
 
 def is_palindrome_recursive(text, left=None, right=None):
     # TODO: implement the is_palindrome function recursively here
@@ -45,5 +53,10 @@ def main():
         print('  checks if each argument given is a palindrome')
 
 
-if __name__ == '__main__':
-    main()
+# print(is_palindrome_iterative('AAAAZAAA'))
+# print(is_palindrome_iterative('BB'))
+print(is_palindrome_iterative('race fast safe car'))
+# print(is_palindrome_iterative('..dog.. go..d? 2132312 @#$%%%'))
+
+# if __name__ == '__main__':
+#     main()
