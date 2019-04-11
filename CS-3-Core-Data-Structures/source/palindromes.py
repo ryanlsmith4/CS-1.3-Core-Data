@@ -23,27 +23,27 @@ def is_palindrome_iterative(text):
     # implement the is_palindrome function iteratively here
     right_index = len(text) - 1
     left_index = 0
-    # only iterate through half the list starting at both sides
-    for i in range(len(text) // 2):
+    while left_index <= right_index:
+        # if !text[left_index].isAlpha():
+        #     left_index += 1
+        # if !text[right_index].isAlpha():
+        #     right_index -= 1
         if text[left_index] == text[right_index]:
             left_index += 1
-            right_index -=1
+            right_index -= 1
         else:
             return False
     return True
 
-def is_palindrome_recursive(text, left=None, right=None, count = 0):
+def is_palindrome_recursive(text, left=0, right=None):
     # implement the is_palindrome function recursively here
-    if len(text) == 0:
-        return True
     if right == None:
         right = len(text) - 1
-        left = 0
-    if count == len(text) // 2 :
+    if left >= right: # This means we have a palindrome
         return True
     if text[right] == text[left]:
-        return is_palindrome_recursive(text, left + 1, right - 1, count + 1)
-    if text[right] != text[left]:
+        return is_palindrome_recursive(text, left + 1, right - 1)
+    else:
         return False
 
 def main():
