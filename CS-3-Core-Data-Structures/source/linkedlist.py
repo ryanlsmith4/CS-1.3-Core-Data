@@ -78,7 +78,20 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
+        # Find the node at the given index and return its data
+        # Node_index is used to keep track of what node we're looking at
+        node_index = 0 # Node_index counter initialized to zero
+        # Start at the head node
+        node = self.head
+        # Loop until the node is None, which is one node too far past the tail
+        while node is not None:
+            # check if we are at the index we want
+            if node_index == index:
+                return node.data
+            # Adjust the counter by
+            node_index += 1
+            # Skip to the next node
+            node = node.next
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -89,6 +102,26 @@ class LinkedList(object):
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node before the given index and insert item after it
+        node_index = 0 # Node_index counter initialized to zero
+        # Start at the head node
+        new_node = Node(item)
+        node = self.head
+        prev_node = None
+        next_node = None
+        if index == 0:
+            self.append(item)
+        if  index == self.size:
+            self.prepend(item)
+        while node is not None:
+            if node_index == index:
+                prev_node == node
+                prev_node.next == new_node
+                next_node == node.next
+                new_node.next == next_node
+                return self
+                # next_node.next == node.next
+            node = node.next
+
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -99,9 +132,11 @@ class LinkedList(object):
         if self.is_empty():
             # Assign head to new node
             self.head = new_node
+            self.size += 1
         else:
             # Otherwise insert new node after tail
             self.tail.next = new_node
+            self.size += 1
         # Update tail to new node regardless
         self.tail = new_node
 
@@ -114,9 +149,11 @@ class LinkedList(object):
         if self.is_empty():
             # Assign tail to new node
             self.tail = new_node
+            self.size += 1
         else:
             # Otherwise insert new node before head
             new_node.next = self.head
+            self.size += 1
         # Update head to new node regardless
         self.head = new_node
 
@@ -175,18 +212,21 @@ class LinkedList(object):
                 previous.next = node.next
                 # Unlink the found node from its next node
                 node.next = None
+                self.size -= 1
             # Check if we found a node at the head
             if node is self.head:
                 # Update head to the next node
                 self.head = node.next
                 # Unlink the found node from the next node
                 node.next = None
+                self.size -= 1
             # Check if we found a node at the tail
             if node is self.tail:
                 # Check if there is a node before the found node
                 if previous is not None:
                     # Unlink the previous node from the found node
                     previous.next = None
+                    self.size -= 1
                 # Update tail to the previous node regardless
                 self.tail = previous
         else:
@@ -194,39 +234,45 @@ class LinkedList(object):
             raise ValueError('Item not found: {}'.format(item))
 
 
-def test_linked_list():
-    ll = LinkedList()
-    print(ll)
+# def test_linked_list():
+#     ll = LinkedList()
+#     print(ll)
+#
+#     print('Appending items:')
+#     ll.append('A')
+#     print(ll)
+#     ll.append('B')
+#     print(ll)
+#     ll.append('C')
+#     print(ll)
+#     print('head: {}'.format(ll.head))
+#     print('tail: {}'.format(ll.tail))
+#     print('size: {}'.format(ll.size))
+#     print('length: {}'.format(ll.length()))
+#
+#     print('Getting items by index:')
+#     for index in range(ll.size):
+#         item = ll.get_at_index(index)
+#         print('get_at_index({}): {!r}'.format(index, item))
+#
+#     print('Deleting items:')
+#     ll.delete('B')
+#     print(ll)
+#     ll.delete('C')
+#     print(ll)
+#     ll.delete('A')
+#     print(ll)
+#     print('head: {}'.format(ll.head))
+#     print('tail: {}'.format(ll.tail))
+#     print('size: {}'.format(ll.size))
+#     print('length: {}'.format(ll.length()))
+ll = LinkedList()
+ll.append('A')
+ll.append('B')
 
-    print('Appending items:')
-    ll.append('A')
-    print(ll)
-    ll.append('B')
-    print(ll)
-    ll.append('C')
-    print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
-
-    print('Getting items by index:')
-    for index in range(ll.size):
-        item = ll.get_at_index(index)
-        print('get_at_index({}): {!r}'.format(index, item))
-
-    print('Deleting items:')
-    ll.delete('B')
-    print(ll)
-    ll.delete('C')
-    print(ll)
-    ll.delete('A')
-    print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
 
 
-if __name__ == '__main__':
-    test_linked_list()
+print(ll.get_at_index(2))
+
+# if __name__ == '__main__':
+#     test_linked_list()
