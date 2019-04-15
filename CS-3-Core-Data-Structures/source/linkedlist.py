@@ -56,7 +56,8 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(n) n = length of list under
+         what conditions? [TODO]"""
         # Node counter initialized to zero
         node_count = 0
         # Start at the head node
@@ -73,8 +74,8 @@ class LinkedList(object):
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time:  [TODO]
+        Worst case running time: O(n) n = length of listunder what conditions? [TODO]"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
@@ -97,31 +98,33 @@ class LinkedList(object):
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
         Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Worst case running time: O(n) n = length of listunder what conditions? [TODO]"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
+        new_node = Node(item)
+        # Find the node before the given index and insert item after it
         node_index = 0 # Node_index counter initialized to zero
         # Start at the head node
-        new_node = Node(item)
         node = self.head
         prev_node = None
-        next_node = None
         if index == 0:
-            self.append(item)
-        if  index == self.size:
             self.prepend(item)
-        while node is not None:
-            if node_index == index:
-                prev_node == node
-                prev_node.next == new_node
-                next_node == node.next
-                new_node.next == next_node
-                return self
-                # next_node.next == node.next
-            node = node.next
+        elif  index == self.size:
+            self.append(item)
+        else:
+            while node is not None:
+                # Node was found at index
+                # get the node behind the index we want
+                if node_index == index - 1:
+                    new_node.next =  node.next
+                    # the node being iterated is assigned prev_node
+                    prev_node = node
+                    prev_node.next = new_node
+                    self.size += 1
 
+                node_index += 1
+                node = node.next
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -142,7 +145,7 @@ class LinkedList(object):
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(1) under what conditions? [TODO]"""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -179,15 +182,21 @@ class LinkedList(object):
         """Replace the given old_item in this linked list with given new_item
         using the same node, or raise ValueError if old_item is not found.
         Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Worst case running time: O(n) n = length of list [TODO]"""
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
-        pass
+        node = self.head
+        while node is not None:
+            if node.data == old_item:
+                node.data = new_item
+                return
+            node = node.next
+        raise ValueError('Item not found: {}'.format(old_item))
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
         Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Worst case running time: O(n) n = length of list [TODO]"""
         # Start at the head node
         node = self.head
         # Keep track of the node before the one containing the given item
@@ -234,45 +243,26 @@ class LinkedList(object):
             raise ValueError('Item not found: {}'.format(item))
 
 
-# def test_linked_list():
-#     ll = LinkedList()
-#     print(ll)
-#
-#     print('Appending items:')
-#     ll.append('A')
-#     print(ll)
-#     ll.append('B')
-#     print(ll)
-#     ll.append('C')
-#     print(ll)
-#     print('head: {}'.format(ll.head))
-#     print('tail: {}'.format(ll.tail))
-#     print('size: {}'.format(ll.size))
-#     print('length: {}'.format(ll.length()))
-#
-#     print('Getting items by index:')
-#     for index in range(ll.size):
-#         item = ll.get_at_index(index)
-#         print('get_at_index({}): {!r}'.format(index, item))
-#
-#     print('Deleting items:')
-#     ll.delete('B')
-#     print(ll)
-#     ll.delete('C')
-#     print(ll)
-#     ll.delete('A')
-#     print(ll)
-#     print('head: {}'.format(ll.head))
-#     print('tail: {}'.format(ll.tail))
-#     print('size: {}'.format(ll.size))
-#     print('length: {}'.format(ll.length()))
-ll = LinkedList()
-ll.append('A')
-ll.append('B')
 
+def test_linked_list():
+    ll = LinkedList()
+    print(ll)
+    print('Appending items:')
+    ll.append('A')
+    print(ll)
+    ll.append('B')
+    print(ll)
+    ll.append('C')
+    print(ll)
+    print('head: {}'.format(ll.head))
+    print('tail: {}'.format(ll.tail))
+    print('size: {}'.format(ll.size))
+    print('length: {}'.format(ll.length()))
 
+    print('Getting items by index:')
+    for index in range(ll.size):
+        item = ll.get_at_index(index)
+        print('get_at_index({}): {!r}'.format(index, item))
 
-print(ll.get_at_index(2))
-
-# if __name__ == '__main__':
-#     test_linked_list()
+if __name__ == '__main__':
+    test_linked_list()
