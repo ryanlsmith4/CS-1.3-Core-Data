@@ -100,8 +100,7 @@ class ArrayStack(object):
         if self.is_empty() == True:
             return None
         else:
-            item = self.list.pop(0)
-            self.list.insert(0, item)
+            item = self.list[0]
             return item
 
 
