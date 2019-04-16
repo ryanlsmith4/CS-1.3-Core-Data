@@ -31,7 +31,8 @@ class LinkedStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – Why? The linkedlist never has to be iterated through
+        """
         # Push given item
         return self.list.prepend(item)
 
@@ -49,7 +50,8 @@ class LinkedStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – Why? The linkedlist never has to be iterated through
+        """
         # Remove and return top item, if any
         try:
             item = self.list.get_at_index(0)
@@ -89,7 +91,8 @@ class ArrayStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(n) – n = Number of items in the list
+        Why? Insert has to shift all the numbers n times"""
         # Insert given item
         return self.list.insert(0, item)
 
@@ -107,7 +110,8 @@ class ArrayStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(n) – n = Number of items in the list
+        Why? pop has to shift all the numbers n times"""
         # Remove and return top item, if any
         try:
             return self.list.pop(0)

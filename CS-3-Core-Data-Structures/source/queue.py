@@ -31,7 +31,8 @@ class LinkedQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – Why? We have a tail on our LinkedList
+        therefore it's easily accesible """
         # Insert given item
         return self.list.append(item)
 
@@ -48,11 +49,12 @@ class LinkedQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – Why? We have a head variable on our linkedlist
+        therefore it's linear time to remove it"""
         # Remove and return front item, if any
         try:
             item = self.list.get_at_index(0)
-            self.list.delete(item)
+            self.list.delete(item) # linear because it's the head node
             return item
         except ValueError:
              raise ValueError('Stack Empty')
@@ -87,7 +89,7 @@ class ArrayQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – Why? no shifting of indeces necessary """
         # Insert given item
         return self.list.append(item)
 
@@ -104,7 +106,8 @@ class ArrayQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(n) – Why? pop method will then have to shift all items
+        in the array 4"""
         # Remove and return front item, if any
         try:
             item = self.list[0]
