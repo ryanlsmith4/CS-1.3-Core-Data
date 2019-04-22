@@ -151,8 +151,8 @@ class HashTable(object):
             new_size = len(self.buckets) / 2  # Half size
         # Get a list to temporarily hold all current key-value entries
         current_key_value = self.items()
-        self.buckets = [LinkedList() for i in range(new_size)]
-        self.size = 0  # Number of key-value entries
+        # Re-initialize the hashtable to resize the current amount of buckets
+        self.__init__(new_size)
         # Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
         for key,value in current_key_value:
