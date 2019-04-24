@@ -38,7 +38,7 @@ class Set(object):
         new_set = Set(other_set.hashtable.keys())        # new_set = other_set
         old_set =  self.hashtable.items()
         for element in old_set:
-            new_set.add(element)
+            new_set.add(element[0])
 
         return new_set
 
