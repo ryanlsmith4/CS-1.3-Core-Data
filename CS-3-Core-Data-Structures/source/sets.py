@@ -36,10 +36,9 @@ class Set(object):
             Ignoring the duplicates
         '''
         new_set = Set(other_set.hashtable.keys())        # new_set = other_set
-        old_set =  self.hashtable.items()
+        old_set =  self.hashtable.keys()
         for element in old_set:
-            new_set.add(element[0])
-
+            new_set.add(element)
         return new_set
 
 
