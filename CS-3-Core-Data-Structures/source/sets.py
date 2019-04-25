@@ -2,27 +2,34 @@ from hashtable import HashTable
 
 class Set(object):
     def __init__(self, elements = None):
+
         self.hashtable = HashTable()
+
         if elements is not None:
             for element in elements:
                 self.add(element)
 
     def __repr__(self):
+
         return 'Set: {!r}'.format(self.hashtable.keys())
 
     def __iter__(self):
+
         for item in self.hashtable.keys():
+
             yield item
 
     def contains(self, element):
         ''' Returns True if item is in the set
             False otherwise
         '''
+
         return self.hashtable.contains(element)
 
     def size(self):
         ''' Returns the size property of the hashtable
         '''
+
         return self.hashtable.size
 
     def add(self, element):
@@ -33,6 +40,7 @@ class Set(object):
 
     def remove(self, element):
         '''Removes the element if it exist Raises Key error if Item doesn't'''
+
         return self.hashtable.delete(element)
 
     def union(self, other_set):
@@ -43,34 +51,43 @@ class Set(object):
         old_set =  self.hashtable.keys()
         for element in old_set:
             union_set.add(element)
+
         return union_set
 
     def intersection(self, other_set):
         ''''''
         intersection_set = Set()
-        print(self)
+
         if self.size() >= other_set.size():
             larger_set = Set(self.hashtable.keys())
             smaller_set = self
         else:
             larger_set = self
             smaller_set = Set(other_set.hashtable.keys())
+
         for item in smaller_set:
+
             if larger_set.contains(item):
                 intersection_set.add(item)
 
         return intersection_set
 
     def difference(self, other_set):
+
         difference_set = Set()
-        for item in self:
-            if item not in other_set.hashtable.keys():
+
+        for item in self.hashtable.keys():
+
+            if not other_set.hashtable.contains(item):
                 difference_set.add(item)
+
         return difference_set
     
     def is_subset(self, other_set):
+        ''''''
         for items in self:
-            if items not in other_set.hashtable.keys():
+
+            if not self.contains(items):
                 return False
             
         return True
