@@ -14,8 +14,7 @@ class SetTest(unittest.TestCase):
     def test_init_with_elements(self):
         set = Set([4,5,6,7])
         assert set.size() == 4
-        set.add(8)
-        assert set.size() == 5
+
 
     def test_size(self):
         set = Set(['a', 'b', 'c'])
