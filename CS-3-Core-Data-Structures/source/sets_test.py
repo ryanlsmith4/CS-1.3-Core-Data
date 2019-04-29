@@ -15,7 +15,6 @@ class SetTest(unittest.TestCase):
         set = Set([4,5,6,7])
         assert set.size() == 4
 
-
     def test_size(self):
         set = Set(['a', 'b', 'c'])
         assert set.size() == 3

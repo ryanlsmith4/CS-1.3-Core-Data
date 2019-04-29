@@ -85,6 +85,9 @@ class Set(object):
     
     def is_subset(self, other_set):
         ''''''
+        if self.size() < other_set.size():
+            return False
+            
         for items in self:
 
             if not self.contains(items):
