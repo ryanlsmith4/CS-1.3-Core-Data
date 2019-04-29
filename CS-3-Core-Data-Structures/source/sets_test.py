@@ -68,5 +68,7 @@ class SetTest(unittest.TestCase):
         set2 = Set(['b', 'c'])
         result = set1.is_subset(set2)
         assert result is True
+        result2 = set2.is_subset(set1)
+        assert result2 is False
 
 
