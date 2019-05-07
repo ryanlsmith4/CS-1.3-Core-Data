@@ -305,18 +305,19 @@ class BinarySearchTree(object):
         """Return a post-order list of all items in this binary search tree."""
         items = []
         if not self.is_empty():
+
             # Traverse tree post-order from root, appending each node's item
             self._traverse_post_order_iterative(self.root, items.append)
-            # self._traverse_post_order_recursive(self.ro4ot, items.append)
-        # Return post-order list of all items in tree
-        return items
+            # self._traverse_post_order_recursive(self.root, items.append)
+
+        return items    # Return post-order list of all items in tree
 
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
         TODO: Running time: O() Why and under what conditions?
         TODO: Memory usage: O() Why and under what conditions?"""
-        # TODO: Traverse left subtree, if it exists
+        # Traverse left subtree, if it exists
         if node is not None:
             self._traverse_post_order_recursive(node.left, visit)
 
@@ -330,20 +331,27 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time:  Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse post-order without using recursion (stretch challenge)
+        # Traverse post-order without using recursion
         stack = LinkedStack()
         traversed = set()
         # loop until root node is the current node
         stack.push(node)
         while not stack.is_empty():
-            node = stack.peek()  
+
+            node = stack.peek() # look at the top of the stack
+
+            # push the right node to the top of the stack if it is not none and it's not in set
             if node.right and node.right not in traversed:
-                stack.push(node.right)
+                stack.push(node.right) 
+
+            # push the right node to the top of the stack if it is not none and it's not in set
             if node.left and node.left not in traversed:
                 stack.push(node.left)
+            
+            # Might be a cleaner way to right this...
             if (
-                node.is_leaf()
-                or node.left is None and node.right in traversed 
+                node.is_leaf() 
+                or node.left is None and node.right in traversed # traversed is a set
                 or node.right is None and node.left in traversed 
                 or node.left in traversed and node.right in traversed
             ):
