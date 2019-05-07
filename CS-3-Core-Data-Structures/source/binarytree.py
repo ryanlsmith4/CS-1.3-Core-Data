@@ -3,6 +3,8 @@ from queue import LinkedQueue
 
 from stack import LinkedStack
 
+from linkedlist import LinkedList
+
 
 class BinaryTreeNode(object):
 
@@ -78,14 +80,14 @@ class BinarySearchTree(object):
         else:
             return None
 
-    # def contains(self, item):
-    #     """Return True if this binary search tree contains the given item.
-    #     TODO: Best case running time: ??? under what conditions?
-    #     TODO: Worst case running time: ??? under what conditions?"""
-    #     # Find a node with the given item, if any
-    #     node = self._find_node_recursive(item, self.root)
-    #     # Return True if a node was found, or False
-    #     return node is not None
+    def contains(self, item):
+        """Return True if this binary search tree contains the given item.
+        TODO: Best case running time: ??? under what conditions?
+        TODO: Worst case running time: ??? under what conditions?"""
+        # Find a node with the given item, if any
+        node = self._find_node_recursive(item, self.root)
+        # Return True if a node was found, or False
+        return node is not None
 
     def search(self, item):
         """Return an item in this binary search tree matching the given item,
@@ -261,14 +263,14 @@ class BinarySearchTree(object):
         
             self._traverse_in_order_recursive(node.right, visit)
 
-    # def _traverse_in_order_iterative(self, node, visit):
-    #     """Traverse this binary tree with iterative in-order traversal (DFS).
-    #     Start at the given node and visit each node with the given function.
-    #     TODO: Running time: ??? Why and under what conditions?
-    #     TODO: Memory usage: ??? Why and under what conditions?"""
-    #     # TODO: Traverse in-order without using recursion (stretch challenge)
-    #     while node is not None:
-    #         if node is not None:
+    def _traverse_in_order_iterative(self, node, visit):
+        """Traverse this binary tree with iterative in-order traversal (DFS).
+        Start at the given node and visit each node with the given function.
+        TODO: Running time: ??? Why and under what conditions?
+        TODO: Memory usage: ??? Why and under what conditions?"""
+        # TODO: Traverse in-order without using recursion (stretch challenge)
+        while node is not None:
+            if node is not None:
                 
 
     def items_pre_order(self):
@@ -276,8 +278,9 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree pre-order from root, appending each node's item
-            self._traverse_pre_order_recursive(self.root, items.append)
-        # Return pre-order list of all items in tree
+            # self._traverse_pre_order_recursive(self.root, items.append)
+            self._traverse_pre_order_iterative(self.root, items.append)
+        # Return pre-order list of all items in tr  ee
         return items
 
     def _traverse_pre_order_recursive(self, node, visit):
@@ -293,24 +296,41 @@ class BinarySearchTree(object):
         # Traverse right subtree, if it exists
             self._traverse_pre_order_recursive(node.right, visit)
 
-    # def _traverse_pre_order_iterative(self, node, visit):
-    #     """Traverse this binary tree with iterative pre-order traversal (DFS).
-    #     Start at the given node and visit each node with the given function.
-    #     TODO: Running time: ??? Why and under what conditions?
-    #     TODO: Memory usage: ??? Why and under what conditions?"""
-    #     # TODO: Traverse pre-order without using recursion (stretch challenge)
-    #     pass
-
+    def _traverse_pre_order_iterative(self, node, visit):
+        """Traverse this binary tree with iterative pre-order traversal (DFS).
+        Start at the given node and visit each node with the given function.
+        TODO: Running time: ??? Why and under what conditions?
+        TODO: Memory usage: ??? Why and under what conditions?"""
+        # Traverse pre-order without using recursion (stretch challenge)
+        stack = LinkedStack()
+        # Enstack given starting node
+        stack.push(node)
+        # Loop until queue is empty
+        while not stack.is_empty():
+            # Dequeue node at front of queue
+            node = stack.pop()
+            # Visit this node's data with given function
+            visit(node.data)
+            # Enqueue this node's left child, if it exists
+            if node.right:
+                stack.push(node.right)
+            # Enqueue this node's right child, if it exists
+            if node.left:
+                stack.push(node.left)
     def items_post_order(self):
         """Return a post-order list of all items in this binary search tree."""
         items = []
+        items_linked = LinkedList()
         if not self.is_empty():
 
             # Traverse tree post-order from root, appending each node's item
-            self._traverse_post_order_iterative(self.root, items.append)
+            self._traverse_post_order_iterative(self.root, items_linked.prepend)
             # self._traverse_post_order_recursive(self.root, items.append)
 
-        return items    # Return post-order list of all items in tree
+        if len(items) == 0:
+            return items_linked.items() 
+        else:
+            return items # Return post-order list of all items in tree
 
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
@@ -333,31 +353,21 @@ class BinarySearchTree(object):
         TODO: Memory usage: ??? Why and under what conditions?"""
         # Traverse post-order without using recursion
         stack = LinkedStack()
-        traversed = set()
         # loop until root node is the current node
         stack.push(node)
         while not stack.is_empty():
 
-            node = stack.peek() # look at the top of the stack
-
-            # push the right node to the top of the stack if it is not none and it's not in set
-            if node.right and node.right not in traversed:
-                stack.push(node.right) 
-
-            # push the right node to the top of the stack if it is not none and it's not in set
-            if node.left and node.left not in traversed:
-                stack.push(node.left)
+            node = stack.pop() # look at the top of the stack
             
-            # Might be a cleaner way to right this...
-            if (
-                node.is_leaf() 
-                or node.left is None and node.right in traversed # traversed is a set
-                or node.right is None and node.left in traversed 
-                or node.left in traversed and node.right in traversed
-            ):
-                node = stack.pop()
-                visit(node.data)
-                traversed.add(node)
+            visit(node.data)
+            # push the right node to the top of the stack if it is not none and it's not in set
+            if node.left is not None:
+                stack.push(node.left) 
+
+            # push the right node to the top of the stack if it is not none and it's not in set
+            if node.right is not None:
+                stack.push(node.right)
+            
 
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""
@@ -391,11 +401,6 @@ class BinarySearchTree(object):
                 queue.enqueue(node.right)
 
 
-# node = BinaryTreeNode(4)
-# node.left = BinaryTreeNode(5)
-# node.right = BinaryTreeNode(3)
-# node.height()
-# print(node)
 
 def test_binary_search_tree():
     # Create a complete binary search tree of 3, 7, or 15 items in level-order

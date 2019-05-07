@@ -33,7 +33,7 @@ def find_index(text, pattern):
             if matched_pattern:
                 return i
     return None
-#
+
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
     or an empty list if not found."""
