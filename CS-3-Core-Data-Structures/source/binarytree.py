@@ -369,7 +369,7 @@ class BinarySearchTree(object):
         stack = LinkedStack()
         # loop until root node is the current node
         stack.push(node)
-        while not stack.is_empty():
+        while not stack.is_empty():4
 
             node = stack.pop() # look at the top of the stack
             

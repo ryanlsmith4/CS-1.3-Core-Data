@@ -18,8 +18,8 @@ class StringsTest(unittest.TestCase):
         assert contains('aaa', 'a') is True  # multiple occurrences
         assert contains('aaa', 'aa') is True  # overlapping pattern
         # TODO: Write more positive test cases with assert is True statements
-        assert contains('realbigfish', 'big')
-        # ...
+        assert contains('realbigfish', 'big') is True
+        assert contains('itisatest', 'is') is True
 
     def test_contains_with_non_matching_patterns(self):
         # Negative test cases (counterexamples) with non-matching patterns
@@ -28,7 +28,9 @@ class StringsTest(unittest.TestCase):
         assert contains('abc', 'az') is False  # first letter, but not last
         assert contains('abc', 'abz') is False  # first 2 letters, but not last
         # TODO: Write more negative test cases with assert is False statements
-        # ...
+        assert contains('zyx', 'gg') is False
+        assert contains('thisshuldreturnfalse', 'truetrue') is False
+        assert contains('daftpunk', 'punkdaft') is False
 
     def test_contains_with_complex_patterns(self):
         # Difficult test cases (examples) with complex patterns
@@ -38,7 +40,10 @@ class StringsTest(unittest.TestCase):
         assert contains('bananas', 'nas') is True  # overlapping prefix
         # TODO: Write more test cases that check complex patterns or edge cases
         # You'll need a lot more than this to test your algorithm's robustness
-        # ...
+        assert contains('Funambulism', 'ambulism') is True
+        assert contains('badbadnotnotgood', 'badnot') is True
+        assert contains('thiscouldgoright', 'couldgoright') is True
+        
 
     def test_find_index_with_matching_patterns(self):
         # Positive test cases (examples) with matching patterns
@@ -52,7 +57,7 @@ class StringsTest(unittest.TestCase):
         assert find_index('aaa', 'a') == 0  # multiple occurrences
         assert find_index('aaa', 'aa') == 0  # overlapping pattern
         # TODO: Write more positive test cases with assert equal int statements
-        # ...
+        # assert find_index('')
 
     def test_find_index_with_non_matching_patterns(self):
         # Negative test cases (counterexamples) with non-matching patterns

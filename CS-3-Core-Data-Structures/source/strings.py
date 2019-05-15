@@ -1,3 +1,4 @@
+import time # for benchmarking
 #!python
 
 def contains(text, pattern):
@@ -19,8 +20,13 @@ def find_index(text, pattern):
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # Implement find_index here (iteratively and/or recursively)
     # Catch edge case of no text
+    start_time = time.time()
     if pattern == '':
+        print('runtime was:', (time.time() - start_time))
         return 0
+    elif len(text) < len(pattern):
+        print('runtime was:', (time.time() - start_time))
+        return None
     for i in range(len(text) - len(pattern) + 1):
         # Patten Found
         if text[i] == pattern[0]:
@@ -31,7 +37,9 @@ def find_index(text, pattern):
                     matched_pattern = False
                     break
             if matched_pattern:
+                print('runtime was:', (time.time() - start_time))
                 return i
+    print('runtime was:', (time.time() - start_time))
     return None
 
 def find_all_indexes(text, pattern):
@@ -39,27 +47,27 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
-    index = find_index(text, pattern)
+    # Implement find_all_indexes here (iteratively and/or recursively)
+    start_time = time.time()
     index_list = []
-    if pattern == '':
-        for i in range(len(text)):
-            index_list.append(i)
-        return index_list
-    if index == None:
-        return index_list
 
-    index_list.append(index)
-    # print(index)
-    for i in range(index + 1, len(text) - len(pattern) + 1):
-        if text[i] == pattern[0]:
-            matched_pattern = True
-            for j in range(len(pattern)):
-                if text[i + j] != pattern[j]:
-                    matched_pattern = False
-                    break
-            if matched_pattern:
-                index_list.append(i)
+    if pattern == '':
+        return list(range(len(text)))
+
+    latest_index = find_index(text, pattern) # get first occurence of index
+    
+    if latest_index is None:
+        print('runtime was:', (time.time() - start_time))
+        return index_list
+    offset = 0
+    while latest_index is not None:
+        index_list.append(latest_index)
+        offset = latest_index + 1
+        if find_index(text[offset:], pattern) is not None:
+            latest_index = find_index(text[offset:], pattern) + offset # get first occurence of index
+        else:
+            latest_index = None
+    print('runtime was:', (time.time() - start_time))
     return index_list
 
 def test_string_algorithms(text, pattern):
